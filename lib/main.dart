@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
     _readData().then((data) {
       setState(() {
         _products = json.decode(data);
-
+        _all = _valueAllProducts(_products);
       });
     });
   }
@@ -286,5 +286,15 @@ class _HomeState extends State<Home> {
       _saveData();
     });
 
+  }
+
+  double _valueAllProducts(List products) {
+    var all = 0.0;
+    for(var product in products){
+      if(product["ok"]) {
+        all += double.parse(product["value"]) * double.parse(product["amount"]);
+      }
+    }
+    return all;
   }
 }
